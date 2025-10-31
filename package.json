@@ -1,6 +1,6 @@
 {
   "name": "vue-render-inspector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Advanced render profiler and debugger for Vue 3.5+ applications. Track, analyze, and optimize component re-renders with detailed insights.",
   "keywords": [
     "vue",
@@ -28,12 +28,15 @@
   "module": "dist/vue-render-inspector.es.js",
   "types": "index.d.ts",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "dist/style.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/vue-render-inspector.es.js",
       "require": "./dist/vue-render-inspector.umd.js"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "files": [
     "dist",
@@ -62,7 +65,8 @@
     "prettier": "^3.6.2",
     "vite": "^5.0.0",
     "vitest": "^3.2.4",
-    "vue": "^3.5.0"
+    "vue": "^3.5.0",
+    "vue-render-inspector": "^1.0.2"
   },
   "scripts": {
     "build": "vite build",

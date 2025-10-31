@@ -7,18 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.2] - 2025-10-31
 
+### 🐛 Bug Fixes
+
+#### Fixed CSS Export Configuration
+- **Fixed:** CSS file not exportable from package
+- **Issue:** `import 'vue-render-inspector/dist/style.css'` failed with error: "Missing ./dist/style.css specifier in package"
+- **Solution:**
+  - Added `"./dist/style.css": "./dist/style.css"` to `exports` field in package.json
+  - Updated `sideEffects` to include CSS file for proper bundler handling
+- **Impact:** CSS can now be imported correctly in all bundlers (Vite, Webpack, Rollup)
+
 ### 📚 Documentation
 
-#### Fixed Missing CSS Import Instruction
+#### Added CSS Import Instruction
 - **Added:** CSS import instruction to Quick Start guide in README
-- **Issue:** Users couldn't see the inspector panel because styles weren't loaded
 - **Solution:** Added `import 'vue-render-inspector/dist/style.css'` to installation example
 - **Impact:** Panel now displays correctly when users follow the Quick Start guide
 
 ### Example
 ```javascript
 import { VueRenderInspector } from 'vue-render-inspector'
-import 'vue-render-inspector/dist/style.css' // ← Now documented!
+import 'vue-render-inspector/dist/style.css' // ← Required for panel styles
 app.use(VueRenderInspector)
 ```
 
