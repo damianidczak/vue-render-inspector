@@ -1,6 +1,6 @@
 {
   "name": "vue-render-inspector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Advanced render profiler and debugger for Vue 3.5+ applications. Track, analyze, and optimize component re-renders with detailed insights.",
   "keywords": [
     "vue",

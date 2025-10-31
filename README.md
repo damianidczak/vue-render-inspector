@@ -56,6 +56,7 @@ npm install vue-render-inspector --save-dev
 ```javascript
 import { createApp } from 'vue'
 import { VueRenderInspector } from 'vue-render-inspector'
+import 'vue-render-inspector/dist/style.css' // Import styles for the panel
 import App from './App.vue'
 
 const app = createApp(App)

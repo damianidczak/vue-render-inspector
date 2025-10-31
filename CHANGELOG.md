@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-10-31
+
+### 📚 Documentation
+
+#### Fixed Missing CSS Import Instruction
+- **Added:** CSS import instruction to Quick Start guide in README
+- **Issue:** Users couldn't see the inspector panel because styles weren't loaded
+- **Solution:** Added `import 'vue-render-inspector/dist/style.css'` to installation example
+- **Impact:** Panel now displays correctly when users follow the Quick Start guide
+
+### Example
+```javascript
+import { VueRenderInspector } from 'vue-render-inspector'
+import 'vue-render-inspector/dist/style.css' // ← Now documented!
+app.use(VueRenderInspector)
+```
+
+---
+
 ## [1.0.1] - 2025-10-31
 
 ### 🐛 Bug Fixes
