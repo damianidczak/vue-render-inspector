@@ -117,19 +117,21 @@ export const VueRenderInspector = {
         })
       return panelInstance
     }
-    if (typeof document !== 'undefined') {
+    if (typeof document !== 'undefined' && typeof window !== 'undefined') {
       panelMountTimeout = setTimeout(() => {
         mountPanel()
-        const urlParams = new URLSearchParams(window.location.search)
-        if (urlParams.get('vri-visualizer') === 'true') {
-          setTimeout(() => {
-            if (window.__VUE_RENDER_INSPECTOR__?.visualizer) {
-              window.__VUE_RENDER_INSPECTOR__.visualizer()
-              const url = new URL(window.location.href)
-              url.searchParams.delete('vri-visualizer')
-              window.history.replaceState({}, document.title, url.toString())
-            }
-          }, 1000)
+        if (typeof window !== 'undefined' && window.location) {
+          const urlParams = new URLSearchParams(window.location.search)
+          if (urlParams.get('vri-visualizer') === 'true') {
+            setTimeout(() => {
+              if (window.__VUE_RENDER_INSPECTOR__?.visualizer) {
+                window.__VUE_RENDER_INSPECTOR__.visualizer()
+                const url = new URL(window.location.href)
+                url.searchParams.delete('vri-visualizer')
+                window.history.replaceState({}, document.title, url.toString())
+              }
+            }, 1000)
+          }
         }
       }, 500)
     }
