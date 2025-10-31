@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-10-31
+
+### 🐛 Bug Fixes
+
+#### Fixed Vite Optimization Error
+- **Fixed:** Vite dependency pre-bundling error when installing package in Vue projects
+- **Issue:** Package was publishing raw `.vue` source files, causing Vite to fail with "dependency might not be compatible" error
+- **Solution:**
+  - Removed `src/` directory from published package (only `dist/` is now published)
+  - Updated Vite config to properly compile Vue components into the bundle
+  - Added Vue plugin to build configuration
+  - Removed `/\.vue$/` from external dependencies
+- **Impact:** Package now works correctly when installed in any Vite-based Vue project
+- **Bundle Changes:**
+  - Added `dist/style.css` (6.95 KB, gzipped: 1.78 KB) - Compiled component styles
+  - Vue components now properly compiled into JavaScript chunks
+  - Total bundle size: ~210 KB (gzipped: ~55 KB)
+
+### 📦 Package Changes
+- Removed source files from published package (only compiled `dist/` included)
+- Package size reduced (no raw source files)
+- Improved compatibility with Vite-based projects
+
+---
+
 ## [1.0.0] - 2025-10-31
 
 ### 🎉 Initial Release

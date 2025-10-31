@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
+  plugins: [vue()],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
@@ -9,7 +11,7 @@ export default defineConfig({
       fileName: format => `vue-render-inspector.${format}.js`
     },
     rollupOptions: {
-      external: ['vue', /\.vue$/],
+      external: ['vue'],
       output: {
         globals: {
           vue: 'Vue'
