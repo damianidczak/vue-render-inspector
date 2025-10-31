@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build outputs
+dist
+build
+coverage
+
+# Test files that might have specific formatting
+*.snap
+
+# Documentation
+*.md
+
+# Config files that should not be formatted
+.gitignore
+.npmignore
+
+# IDE files
+.vscode
+.idea

@@ -1,0 +1,96 @@
+{
+  "name": "vue-render-inspector",
+  "version": "1.0.0",
+  "description": "Advanced render profiler and debugger for Vue 3.5+ applications. Track, analyze, and optimize component re-renders with detailed insights.",
+  "keywords": [
+    "vue",
+    "vue3",
+    "render",
+    "profiler",
+    "performance",
+    "devtools",
+    "debugging",
+    "optimization",
+    "unnecessary-renders",
+    "why-did-you-render"
+  ],
+  "author": "Damian Idczak <idczak.di@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/damianidczak/vue-render-inspector"
+  },
+  "bugs": {
+    "url": "https://github.com/damianidczak/vue-render-inspector/issues"
+  },
+  "homepage": "https://github.com/damianidczak/vue-render-inspector#readme",
+  "main": "dist/vue-render-inspector.umd.js",
+  "module": "dist/vue-render-inspector.es.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/vue-render-inspector.es.js",
+      "require": "./dist/vue-render-inspector.umd.js"
+    }
+  },
+  "files": [
+    "src",
+    "dist",
+    "index.d.ts",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@rushstack/eslint-patch": "^1.14.1",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.5.1",
+    "glob": "^11.0.3",
+    "happy-dom": "^19.0.2",
+    "husky": "^9.1.7",
+    "jsdom": "^27.0.1",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
+    "vite": "^5.0.0",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.0"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write \"**/*.{js,jsx,vue,json,css,scss,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,vue,json,css,scss,md}\"",
+    "prepublishOnly": "npm run lint:check && npm run test:run && npm run build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

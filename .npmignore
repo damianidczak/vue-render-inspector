@@ -1,0 +1,47 @@
+# Development files
+examples/
+tests/
+docs/
+test/
+*.test.js
+*.spec.js
+
+# Config files
+vite.config.js
+vitest.config.js
+tsconfig.json
+.gitignore
+.editorconfig
+.eslintrc*
+.prettierrc*
+
+# Source control
+.git/
+.github/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (only devDependencies needed for development)
+node_modules/
+
+# Build artifacts that shouldn't be published
+*.map
+coverage/
+.nyc_output/
+
+# Other
+CLAUDE.md
+CONTRIBUTING.md
+TODO.md
