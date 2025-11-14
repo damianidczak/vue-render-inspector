@@ -246,6 +246,13 @@ describe('index.js - Public API Exports', () => {
       expect(inspector).toBeDefined()
     })
 
+    it('should allow overriding panelOpenByDefault option', () => {
+      setupRenderInspector(app, { panelOpenByDefault: false })
+
+      const inspector = app.config.globalProperties.$renderInspector
+      expect(inspector).toBeDefined()
+    })
+
     it('should pass all custom options to VueRenderInspector.install', () => {
       const customOptions = {
         enabled: true,
@@ -255,6 +262,7 @@ describe('index.js - Public API Exports', () => {
         errorThreshold: 150,
         detectUnnecessary: false,
         showWelcome: false,
+        panelOpenByDefault: false,
         maxRecords: 500,
         strictMode: true
       }

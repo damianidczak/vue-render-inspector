@@ -36,6 +36,7 @@ export function setupRenderInspector(app, options = {}) {
     errorThreshold: 100,
     detectUnnecessary: true,
     showWelcome: true,
+    panelOpenByDefault: true,
     ...options
   }
   return app.use(Plugin, defaultOptions)

@@ -67,7 +67,8 @@ app.use(VueRenderInspector, {
   maxReactivityEvents: 100, // Maximum reactivity events to track per component
 
   // UI settings
-  showWelcome: true // Show welcome message in console
+  showWelcome: true, // Show welcome message in console
+  panelOpenByDefault: true // Keep floating window open on load
 })
 
 console.log('[MAIN] 5. VueRenderInspector plugin installed')

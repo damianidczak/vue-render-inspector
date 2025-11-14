@@ -348,6 +348,17 @@ app.use(VueRenderInspector, {
 })
 ```
 
+### `panelOpenByDefault`
+- **Type:** `Boolean`
+- **Default:** `true`
+- **Description:** Control whether the floating inspector window is visible immediately or minimized to the launcher circle
+- **Example:**
+```javascript
+app.use(VueRenderInspector, {
+  panelOpenByDefault: false // Start minimized; click the green circle to open
+})
+```
+
 ---
 
 ## 📋 Configuration Examples
@@ -411,7 +422,7 @@ app.use(VueRenderInspector)
 
 ## ✅ Option Verification
 
-All **33 configurable options** have been tested and verified to work correctly:
+All **34 configurable options** have been tested and verified to work correctly:
 
 **Core:** `enabled` (2 tests)
 **Filtering:** `include`, `exclude` (4 tests)
@@ -423,10 +434,10 @@ All **33 configurable options** have been tested and verified to work correctly:
 **Events:** `trackEvents`, `eventContextTimeout`, `debugEvents` (3 tests)
 **Reactivity:** `trackReactivity`, `maxReactivityEvents`, `reactivitySamplingRate` (3 tests)
 **Console:** `console`, `verbose`, `showTimestamp`, `showDuration`, `groupByComponent`, `colorize` (6 tests)
-**UI:** `showWelcome` (2 tests)
+**UI:** `showWelcome`, `panelOpenByDefault` (4 tests)
 **Combined:** Multiple options together (1 test)
 
-**Total Tests:** 38 tests covering all options
+**Total Tests:** 40 tests covering all options
 **Test Suite:** 777/777 tests passing
 
 ---

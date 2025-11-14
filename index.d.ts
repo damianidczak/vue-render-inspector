@@ -67,6 +67,9 @@ export interface VueRenderInspectorOptions {
 
     /** Show welcome message (default: true) */
     showWelcome?: boolean;
+
+    /** Open floating panel on load (default: true) */
+    panelOpenByDefault?: boolean;
 }
 
 export interface UseRenderInspectorOptions extends VueRenderInspectorOptions {

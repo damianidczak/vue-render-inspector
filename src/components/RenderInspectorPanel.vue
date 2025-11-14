@@ -30,10 +30,14 @@ const props = defineProps({
   profiler: {
     type: Object,
     required: true
+  },
+  panelOpenByDefault: {
+    type: Boolean,
+    default: true
   }
 })
 
-const isVisible = ref(true)
+const isVisible = ref(props.panelOpenByDefault)
 const panelPosition = ref({ x: 20, y: 20 })
 const panelSize = ref({ width: 450, height: 600 })
 
