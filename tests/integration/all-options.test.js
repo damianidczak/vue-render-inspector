@@ -1,4 +1,4 @@
-import { test, expect, vi, describe } from 'vitest'
+import { test, expect, vi, describe, afterEach } from 'vitest'
 import { defineComponent, h, ref } from 'vue'
 import { mountWithInspector } from '../helpers/setup.js'
 
@@ -12,6 +12,16 @@ const TestComponent = defineComponent({
 })
 
 describe('VueRenderInspector - All Options Verification', () => {
+  const removePanelContainer = () => {
+    const panelContainer = document.getElementById('vri-panel-container')
+    if (panelContainer?.parentNode) {
+      panelContainer.parentNode.removeChild(panelContainer)
+    }
+  }
+
+  afterEach(() => {
+    removePanelContainer()
+  })
   test('enabled option (true) - should track components', async () => {
     const { wrapper, inspector } = await mountWithInspector(
       TestComponent,
@@ -564,6 +574,42 @@ describe('VueRenderInspector - All Options Verification', () => {
     expect(welcomeCalls.length).toBe(0)
 
     consoleLog.mockRestore()
+    wrapper.unmount()
+  })
+
+  test('panelOpenByDefault option (true by default)', async () => {
+    const { wrapper } = await mountWithInspector(
+      TestComponent,
+      {},
+      {
+        console: false
+      }
+    )
+
+    expect(document.querySelector('.vri-floating-window')).not.toBeNull()
+
+    wrapper.unmount()
+  })
+
+  test('panelOpenByDefault option (false)', async () => {
+    const { wrapper } = await mountWithInspector(
+      TestComponent,
+      {},
+      {
+        console: false,
+        panelOpenByDefault: false
+      }
+    )
+
+    expect(document.querySelector('.vri-floating-window')).toBeNull()
+    const triggerButton = document.querySelector('.vri-floating-circle')
+    expect(triggerButton).not.toBeNull()
+
+    triggerButton.click()
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(document.querySelector('.vri-floating-window')).not.toBeNull()
+
     wrapper.unmount()
   })
 

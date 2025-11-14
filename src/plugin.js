@@ -93,6 +93,8 @@ export const VueRenderInspector = {
     }
     let panelInstance = null
     let panelMountTimeout = null
+    const isPanelOpenByDefault =
+      typeof options.panelOpenByDefault === 'boolean' ? options.panelOpenByDefault : true
     const mountPanel = () => {
       if (panelInstance) return panelInstance
       if (typeof document === 'undefined') return null
@@ -104,7 +106,8 @@ export const VueRenderInspector = {
           import('vue')
             .then(({ createApp }) => {
               const panelApp = createApp(RenderInspectorPanel, {
-                profiler: globalProfiler
+                profiler: globalProfiler,
+                panelOpenByDefault: isPanelOpenByDefault
               })
               panelInstance = panelApp.mount(panelContainer)
             })

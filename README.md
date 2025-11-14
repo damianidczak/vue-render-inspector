@@ -334,6 +334,7 @@ For advanced users who need fine-grained control:
   
   // UI Options
   showWelcome: true,         // Welcome message
+  panelOpenByDefault: true,  // Keep floating window open on load
   showTimestamp: true,       // Show timestamps
   showDuration: true,        // Show durations
   groupByComponent: false,   // Group by component
