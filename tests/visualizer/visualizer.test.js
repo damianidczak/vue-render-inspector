@@ -166,6 +166,20 @@ describe('Advanced Optimized Visualizer', () => {
       expect(inspector.style.position).toBe('absolute')
       expect(inspector.style.bottom).toBe('20px')
     })
+
+    it('should setup split view containers and toggle controls', () => {
+      createEnhancedVisualizerV2(mockProfiler)
+
+      const structuredView = document.getElementById('vri-structured-view')
+      const canvasView = document.getElementById('vri-canvas-view')
+      const viewButtons = document.querySelectorAll('.vri-view-btn')
+
+      expect(structuredView).toBeTruthy()
+      expect(canvasView).toBeTruthy()
+      expect(structuredView.style.display).toBe('none')
+      expect(canvasView.style.display).not.toBe('none')
+      expect(viewButtons.length).toBeGreaterThanOrEqual(2)
+    })
   })
 
   describe('TreeNode Class', () => {
@@ -395,6 +409,67 @@ describe('Advanced Optimized Visualizer', () => {
 
       toggleBtn.click()
       expect(notificationPanel.style.display).toBe('block')
+    })
+  })
+
+  describe('Split View Layout', () => {
+    it('should toggle between canvas and split view layouts', () => {
+      createEnhancedVisualizerV2(mockProfiler)
+
+      const structuredBtn = document.querySelector('[data-view="structured"]')
+      const canvasBtn = document.querySelector('[data-view="canvas"]')
+      const structuredView = document.getElementById('vri-structured-view')
+      const canvasView = document.getElementById('vri-canvas-view')
+      const notificationPanel = document.querySelector('[id="notification-list"]').parentElement
+
+      expect(notificationPanel.style.position).toBe('absolute')
+
+      structuredBtn.click()
+      expect(structuredView.style.display).toBe('block')
+      expect(canvasView.style.display).toBe('none')
+      expect(notificationPanel.style.position).toBe('relative')
+
+      canvasBtn.click()
+      expect(canvasView.style.display).toBe('block')
+      expect(structuredView.style.display).toBe('none')
+      expect(notificationPanel.style.position).toBe('absolute')
+    })
+
+    it('should render component tree nodes and open drawer on selection', async () => {
+      const { subscribeToRenderEvents } = await import('../../src/core/broadcast-channel.js')
+      let capturedCallback
+
+      subscribeToRenderEvents.mockImplementation(callback => {
+        capturedCallback = callback
+        return () => {}
+      })
+
+      createEnhancedVisualizerV2(mockProfiler)
+
+      capturedCallback({
+        uid: 'abc',
+        componentName: 'TreeComponent',
+        timestamp: Date.now(),
+        duration: 4,
+        isUnnecessary: false
+      })
+
+      await vi.advanceTimersByTimeAsync(50)
+
+      const structuredBtn = document.querySelector('[data-view="structured"]')
+      structuredBtn.click()
+
+      const treeNodes = document.querySelectorAll('.vri-tree-node')
+      expect(treeNodes.length).toBeGreaterThan(0)
+
+      const header = treeNodes[0].querySelector('.vri-tree-node-header')
+      header.click()
+
+      const drawer = document.getElementById('vri-drawer')
+      expect(drawer.classList.contains('open')).toBe(true)
+
+      const inspector = document.getElementById('vri-inspector')
+      expect(inspector.style.display).toBe('block')
     })
   })
 
