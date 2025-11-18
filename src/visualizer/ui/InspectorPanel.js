@@ -5,29 +5,22 @@ export class InspectorPanel {
   constructor() {
     this.panel = null
     this.selectedNode = null
+    this.layout = 'overlay' // Overlay panel for canvas view
   }
 
   createPanel() {
     const inspector = document.createElement('div')
     inspector.id = 'vri-inspector'
-    inspector.style.cssText = `
-      position: absolute;
-      right: 20px;
-      top: 60px;
-      bottom: 20px;
-      width: 350px;
-      background: rgba(30, 30, 30, 0.95);
-      border: 1px solid rgba(66, 184, 131, 0.3);
-      border-radius: 8px;
-      padding: 20px;
-      overflow-y: auto;
-      backdrop-filter: blur(10px);
-      display: none;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    `
-
     this.panel = inspector
+    this._applyLayoutStyles()
+    this.panel.style.display = 'none'
+
     return inspector
+  }
+
+  setLayout(layout) {
+    this.layout = layout
+    this._applyLayoutStyles()
   }
 
   showInspector(node) {
@@ -136,6 +129,33 @@ export class InspectorPanel {
         font-size: 12px;
       ">🗑️ Clear Component Data</button>
     `
+  }
+
+  _applyLayoutStyles() {
+    if (!this.panel) return
+
+    const isHidden = this.panel.style.display === 'none'
+    
+    // InspectorPanel is only used in overlay mode (canvas view)
+    // Split view uses its own drawer, not this panel
+    Object.assign(this.panel.style, {
+      position: 'absolute',
+      right: '20px',
+      top: '60px',
+      bottom: '20px',
+      width: '350px',
+      height: 'auto',
+      background: 'rgba(30, 30, 30, 0.95)',
+      border: '1px solid rgba(66, 184, 131, 0.3)',
+      borderRadius: '8px',
+      padding: '20px',
+      overflowY: 'auto',
+      backdropFilter: 'blur(10px)',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+      transition: 'transform 0.3s ease, opacity 0.3s ease'
+    })
+
+    this.panel.style.display = isHidden ? 'none' : 'block'
   }
 
   _renderPerformanceMetrics(node, perf) {

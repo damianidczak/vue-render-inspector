@@ -10,21 +10,23 @@ export class NotificationSystem {
     this.listElement = null
     this.navigateCallback = null
     this.selectCallback = null
+    this.layout = 'overlay'
   }
 
   createPanel() {
     // Create notification panel
     const notificationPanel = document.createElement('div')
-    notificationPanel.style.cssText = `
-      background: rgba(30, 30, 30, 0.95);
-      border: 1px solid rgba(66, 184, 131, 0.3);
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      will-change: opacity;
-      transition: opacity 0.3s ease;
-    `
+    Object.assign(notificationPanel.style, {
+      background: 'rgba(30, 30, 30, 0.95)',
+      border: '1px solid rgba(66, 184, 131, 0.3)',
+      borderRadius: '8px',
+      padding: '15px',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+      backdropFilter: 'blur(10px)',
+      willChange: 'opacity',
+      transition: 'opacity 0.3s ease',
+      overflowY: 'auto'
+    })
 
     const notificationTitle = document.createElement('h4')
     notificationTitle.style.cssText = `
@@ -72,11 +74,16 @@ export class NotificationSystem {
 
     this.panel = notificationPanel
     this.listElement = notificationList
+    this._applyLayoutStyles()
 
     // Clear notifications handler
     this._setupClearHandler()
 
     return notificationPanel
+  }
+  setLayout(layout) {
+    this.layout = layout
+    this._applyLayoutStyles()
   }
 
   _setupClearHandler() {
@@ -298,6 +305,23 @@ export class NotificationSystem {
     this.notifications.length = 0
     this.render()
     this.updateBadge()
+  }
+
+  _applyLayoutStyles() {
+    if (!this.panel) return
+    const wasHidden = this.panel.style.display === 'none'
+
+    // NotificationSystem is only used in overlay mode (canvas view)
+    // Split view uses its own component changes list, not this panel
+    Object.assign(this.panel.style, {
+      position: 'absolute',
+      left: '20px',
+      top: '80px',
+      width: '400px',
+      maxHeight: '300px',
+      height: 'auto',
+      display: wasHidden ? 'none' : 'block'
+    })
   }
 
   getCount() {
